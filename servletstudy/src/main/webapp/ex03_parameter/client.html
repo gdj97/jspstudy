@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--  /src/main/webapp/ex03_parameter/client.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ <h3>Get 방식 전송</h3>
+ <div>
+ 	<form action="/servletstudy/GetServlet">
+ 		<input type="text" id="model" name="model" placeholder="모델명"><br>
+ 		<input type="text"  name="price" placeholder="가격"><br>
+ 		<button type="submit">파라미터전송</button>
+ 	</form>
+ </div>
+<hr>
+ <h3>Post 방식 전송</h3>
+ <div>
+ 	<form action="/servletstudy/PostServlet" method="POST">
+ 		<input type="text" id="model" name="model" placeholder="모델명"><br>
+ 		<input type="text"  name="price" placeholder="가격"><br>
+ 		<button type="submit">파라미터전송</button>
+ 	</form>
+ </div>
+</body>
+</html>
