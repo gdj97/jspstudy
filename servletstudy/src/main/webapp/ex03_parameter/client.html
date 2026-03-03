@@ -8,15 +8,24 @@
 <body>
  <h3>Get 방식 전송</h3>
  <div>
+    <!--  form 태그에 method 속성이 생략되면 Get 방식
+        Get 방식 : url 정보에 파라미터값이 쿼리로 붙어서 전송. 파라미터정보를 볼수 있음 
+    -->
  	<form action="/servletstudy/GetServlet">
  		<input type="text" id="model" name="model" placeholder="모델명"><br>
  		<input type="text"  name="price" placeholder="가격"><br>
- 		<button type="submit">파라미터전송</button>
+ 		<!-- 해당 form의 action속성의 값으로 페이지 요청. 파라미터값을 전달 model,price 파라미터-->
+ 		<button type="submit">파라미터전송</button> 
  	</form>
  </div>
 <hr>
  <h3>Post 방식 전송</h3>
  <div>
+    <!--  form 태그에 method 속성의 값이 POST인 경우 
+        Post 방식 : 파라미터값이 http의 body 부분에 추가되어 전송됨. 파라미터 정보를 볼수 없다.
+                   보안에 유리함. 
+        PostServlet 서블릿 프로그램 구현하기           
+    -->
  	<form action="/servletstudy/PostServlet" method="POST">
  		<input type="text" id="model" name="model" placeholder="모델명"><br>
  		<input type="text"  name="price" placeholder="가격"><br>
