@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,11 +10,22 @@
 </head>
 <body>
 	<h1>피자 주문 양식</h1>
+
 	<h2>오늘의 날짜</h2>
+	<%
+	Date today = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+	String todayStr = sdf.format(today);
+	%>
+
 	<h4><%=todayStr%></h4>
+
+
 	<form action="<%=request.getContextPath()%>/order" method="post">
+
 		<fieldset>
 			<legend>주문자정보</legend>
+
 			<table>
 				<tr>
 					<th>이름</th>
@@ -33,9 +46,11 @@
 			</table>
 		</fieldset>
 
-		<br> <input type="submit" value="주문"> 
-		<input type="reset">
+		<br> <input type="submit" value="주문"> <input type="reset">
+
 	</form>
+
+
 
 </body>
 </html>
