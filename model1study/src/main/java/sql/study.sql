@@ -1,0 +1,11 @@
+-- /src/java/sql/study.sql
+
+CREATE TABLE MEMBER (
+	id VARCHAR(20) PRIMARY KEY,
+	pass VARCHAR(20),
+	NAME VARCHAR(20),
+	gender INT(1),
+	tel VARCHAR(15),
+	email VARCHAR(50),
+	picture VARCHAR(200)
+)
