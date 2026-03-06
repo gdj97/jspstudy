@@ -1,14 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%--
-/src/main/webapp/test0305/bookform.jsp
-
    방명록 등록하기
    1. 데이터베이스에 book 테이블 생성하기
    2. bookwrite.jsp에서 book 테이블에 입력된 내용을 등록하고 결과를 화면에 출력하기
-   		Book.java
-   		BookDao.java
  --%>    
 <!DOCTYPE html>
 <html>

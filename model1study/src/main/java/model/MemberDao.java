@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MemberDao {
@@ -28,6 +29,33 @@ public class MemberDao {
 			DBConnection.close(conn, pstmt, null);
 		}
 		return false;
+	}
+	public Member selectOne(String id) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "select * from member where binary id=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Member mem = new Member();
+				mem.setId(rs.getString("id"));
+				mem.setPass(rs.getString("pass"));
+				mem.setName(rs.getString("name"));
+				mem.setGender(rs.getInt("gender"));
+				mem.setTel(rs.getString("tel"));
+				mem.setEmail(rs.getString("email"));
+				mem.setPicture(rs.getString("picture"));
+				return mem;
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(conn, pstmt, rs);
+		}
+		return null;
 	}
 
 }

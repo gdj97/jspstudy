@@ -9,3 +9,11 @@ CREATE TABLE MEMBER (
 	email VARCHAR(50),
 	picture VARCHAR(200)
 )
+
+create table book (
+   no int AUTO_INCREMENT primary key,
+   writer varchar(50),
+   title varchar(100),
+   content varchar(2000),
+   regdate datetime
+)
