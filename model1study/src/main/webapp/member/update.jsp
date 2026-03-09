@@ -24,19 +24,21 @@
    mem.setTel(request.getParameter("tel"));
    mem.setEmail(request.getParameter("email"));
    mem.setPicture(request.getParameter("picture"));
-   //2 비밀번호를 위한 db의 데이터 조회. : login 정보로 조회하기
+   //로그인 정보 데이터 조회. 비밀번호 검증. 
    String login = (String)session.getAttribute("login");
    MemberDao dao = new MemberDao();
    Member dbMem = dao.selectOne(login);
    String msg = "비밀번호 오류";
    String url = "updateForm.jsp?id=" + mem.getId();
-   //mem.getPass() : 입력한 비밀번호
-   //dbMem.getPass() : 로그인한 아이디의 비밀번호
-   if(mem.getPass().equals(dbMem.getPass()))  {
-	  if(dao.update(mem)) { // 회원 정보 수정 성공
+   /*
+     mem.getPass() : 입력된 비밀번호
+     dbMem.getPass() : 로그인된 사용자의 비밀번호
+   */
+   if(mem.getPass().equals(dbMem.getPass()))  { //비밀번호 일치
+	  if(dao.update(mem)) {                     //수정성공
 		  msg = "수정 성공";
 		  url = "info.jsp?id="+mem.getId();
-	  } else {// 회원 정보 수정 실패
+	  } else {                                  //수정실패
 		  msg = "수정 실패";
 	  }
    }
