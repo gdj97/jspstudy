@@ -37,5 +37,14 @@
 	   let op = "width=500,height=500,left=50,top=150";
 	   open("pictureForm.jsp","",op);
    }   
+   function idchk() {
+	   if (document.f.id.value == '') {
+		   alert("아이디를 입력하세요")
+		   document.f.id.focus()
+	   } else {
+	     let op = "width=500,height=200,left=50,top=150"
+	     open("idchk.jsp?id="+document.f.id.value,"",op)
+	   }
+   }   
   </script>
   </body></html>

@@ -63,7 +63,7 @@ public class MemberDao {
 		Connection conn = DBConnection.getConnection();
 		PreparedStatement pstmt = null;
 		String sql = "update member set name=? ,gender=?,tel=?,email=?,picture=? "
-				   + " where id=?";
+				   + " where binary id=?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mem.getName());
@@ -108,4 +108,62 @@ public class MemberDao {
 		}
 		return null;
 	}
+	public boolean delete(String id) {
+		Connection conn = DBConnection.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "delete from member where binary id=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			return pstmt.executeUpdate() > 0;
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(conn, pstmt, null);
+		}
+		return false;
+	}
+	//
+	public String idSearch(String email, String tel) {
+		Connection conn = DBConnection.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select id from member where email=? and tel =?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, tel);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(conn, pstmt, rs);
+		}
+		return null;
+	}
+	public String pwSearch(String id, String email, String tel) {
+		Connection conn = DBConnection.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select pass from member  where binary id =?  and email = ? and tel = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, email);
+			pstmt.setString(3, tel);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getString(1); //1번째 컬럼의 값
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(conn, pstmt, rs);
+		}
+		return null;
+	}
+	
 }

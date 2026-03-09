@@ -31,6 +31,7 @@
 <tr><th>아이디</th><th>사진</th><th>이름</th><th>성별</th><th>전화</th>
     <th>&nbsp;</th></tr>
 <%
+//list : 모든 회원 정보를 저장
 List<Member> list = new MemberDao().list();
 for(Member m : list) {
 %>

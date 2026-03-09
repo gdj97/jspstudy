@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookDao {
 	public boolean insert(Book book) {
@@ -78,4 +80,30 @@ public class BookDao {
 			DBConnection.close(conn, pstmt, null);
 		}
 	}
+	 public List<Book> list() {
+		 Connection conn = DBConnection.getConnection();
+		 String sql = "select * from book";
+		 PreparedStatement pstmt = null;
+		 ResultSet rs = null;
+		 List<Book> list = new ArrayList<>();
+		 try {
+			 pstmt = conn.prepareStatement(sql);
+			 rs = pstmt.executeQuery();
+			 while(rs.next()) {
+				Book b = new Book();
+				b.setNo(rs.getInt("no"));
+				b.setWriter(rs.getString("writer"));
+				b.setTitle(rs.getString("title"));
+				b.setContent(rs.getString("content"));
+				b.setRegdate(rs.getDate("regdate"));
+			    list.add(b);
+			 }
+			 return list;
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 } finally {
+			 DBConnection.close(conn,pstmt,rs);
+		 }
+		 return null;
+	 }
 }
