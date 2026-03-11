@@ -11,5 +11,9 @@
    나이:<input type="text" name="age"><br>
    성별:<input type="radio" name="gender" value="1">남
      <input type="radio" name="gender" value="2">여<br>
- 출생연도 : <select name="year"></select><br>
-  <input type="submit" value="전송"></form></body></html>
+ 출생연도 : <select name="year">
+ <c:forEach var="i" begin="1985" end="2005" >
+     <option>${i}</option>
+</c:forEach></select><br>
+  <input type="submit" value="전송"></form>
+</body></html>
