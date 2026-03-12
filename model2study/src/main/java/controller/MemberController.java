@@ -78,4 +78,51 @@ public class MemberController extends MskimRequestMapping{
 		request.getSession().invalidate();
 		return "redirect:loginForm"; //loginForm을 redirect 하도록 MskimRequestMapping 서블릿에서 설정
 	}
+	@RequestMapping("id") //http://localhost:8080/model2study/member/id
+	public String id(HttpServletRequest request, HttpServletResponse response) {
+		   String email = request.getParameter("email");
+		   String tel = request.getParameter("tel");
+		   String id = new MemberDao().idSearch(email,tel);
+		   if (id == null) {
+			   request.setAttribute("msg","아이디를 찾을 수 없습니다" );
+			   request.setAttribute("url","idForm" );
+			   return "alert";
+		   }
+		   String showId = id.substring(0,id.length()-2);
+		   request.setAttribute("id", showId);
+		   return "member/id";
+	}
+	@RequestMapping("pw") //http://localhost:8080/model2study/member/pw
+	public String pw(HttpServletRequest request, HttpServletResponse response) {
+		   String id = request.getParameter("id");
+		   String email = request.getParameter("email");
+		   String tel = request.getParameter("tel");
+		   String pass = dao.pwSearch(id,email,tel);
+		   if(pass != null) {
+			   request.setAttribute("pass", pass.substring(2,pass.length()));
+		       return "member/pw";
+		   } else {
+			   request.setAttribute("msg", "정보에 맞는 비밀번호를 찾을 수 없습니다.");
+			   request.setAttribute("url", "pwForm");
+			   return "alert";
+		   }
+	}
+   @RequestMapping("idchk")
+   public String idchk (HttpServletRequest request,  HttpServletResponse response) {
+		   String id = request.getParameter("id");
+		   Member mem = dao.selectOne(id);
+		   String msg = null;
+		   String className = null;		   
+		   if (mem == null) {
+			   msg = "사용가능한 아이디 입니다.";
+			   className = "able";
+		   } else {
+			   msg = "사용 중인 아이디 입니다.";
+			   className = "disable";
+		   }
+		   request.setAttribute("msg", msg);
+		   request.setAttribute("className", className);
+		   return "member/idchk";
+	   }	
+	
 }
