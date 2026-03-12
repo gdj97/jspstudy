@@ -14,9 +14,15 @@ public class Member {
 	private String email;
 	private String picture;
 	//get,set,toString
+	/*
+	 * getId() : Get 프로퍼티. 프로퍼티: id
+	 */
 	public String getId() {
 		return id;
 	}
+	/*
+	 * setId() : Set 프로퍼티. 프로퍼티: id
+	 */
 	public void setId(String id) { //화면에서 입력받은 데이터 매개변수로 저장
 		this.id = id;
 	}
