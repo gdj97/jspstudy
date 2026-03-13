@@ -24,7 +24,6 @@ public class BookController extends MskimRequestMapping{
 	    book.setWriter(request.getParameter("writer"));
 	    book.setTitle(request.getParameter("title"));
 	    book.setContent(request.getParameter("content"));
-	    BookDao dao = new BookDao();
 	    if(dao.insert(book)) {
 	    	return "redirect:list";
 	    } else {
@@ -37,7 +36,6 @@ public class BookController extends MskimRequestMapping{
 	@RequestMapping("info")
 	public String info (HttpServletRequest request, HttpServletResponse response) {
 		
-		BookDao dao = new BookDao();
 		int no = Integer.parseInt(request.getParameter("no"));
 		Book book = dao.selectOne(no);
 		if(book == null) {
@@ -51,7 +49,7 @@ public class BookController extends MskimRequestMapping{
 	@RequestMapping("delete")
 	public String delete (HttpServletRequest request, HttpServletResponse response) {
 		int no = Integer.parseInt(request.getParameter("no"));
-		new BookDao().delete(no);
+		dao.delete(no);
 		return "redirect:list";
 	}
 	//방명록 수정
@@ -76,7 +74,6 @@ public class BookController extends MskimRequestMapping{
 		b.setWriter(request.getParameter("writer"));
 		b.setTitle(request.getParameter("title"));
 		b.setContent(request.getParameter("content"));
-		BookDao dao = new BookDao();
 		dao.update(b);
 		return "redirect:info?no="+b.getNo();
 	}
@@ -84,7 +81,7 @@ public class BookController extends MskimRequestMapping{
 	//방명록 목록
 	@RequestMapping("list")
 	public String list (HttpServletRequest request, HttpServletResponse response) {
-		List<Book> list = new BookDao().list();
+		List<Book> list = dao.list();
 		request.setAttribute("list",list);
 		return "book/list";
 

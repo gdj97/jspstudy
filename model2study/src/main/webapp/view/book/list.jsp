@@ -15,7 +15,7 @@
 		<tr><th>번호</th><th>글쓴이</th><th>제목</th><th>&nbsp;</th>	</tr>
 		<c:forEach var="b" items="${list }">
 		<tr>
-			<td></td>
+			<td>${b.no}</td>
 			<td>${b.writer}</td>
 			<td><a href="info?no=${b.no}">${b.title}</a></td>
 			<td><a href="bookupdateform?no=${b.no}">수정</a>
