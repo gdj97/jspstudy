@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<!--  /src/mapper/mybatis-config.xml -->
+<!--  /src/main/java/model/mapper/mybatis-config.xml -->
 <configuration>
   <!-- config 파일에서 사용되는 환경 변수 설정 -->
-  <properties resource="mapper/mybatis.properties" />
+  <properties resource="model/mapper/mybatis.properties" />
   
   <!-- 클래스의 별명 설정 : 패키지명 생략가능 -->
   <typeAliases>
-  	<typeAlias type="main.Member" alias="Member"/>
-  	<typeAlias type="main.Student" alias="Student"/>
-  	<typeAlias type="test0313.Professor" alias="Professor"/>
   </typeAliases>
   
   <!-- Connection 객체  -->
@@ -27,11 +24,6 @@
   </environments>
   <!--  sql 구문을 가진 파일 목록 -->
   <mappers>
-  	<mapper resource="mapper/MemberMapper1.xml"/>
-  	<mapper resource="mapper/StudentMapper1.xml"/>
-  	<mapper resource="mapper/StudentMapper2.xml"/>
-  	<mapper resource="mapper/StudentMapper3.xml"/> <!-- 2026313 과제 -->
-  	<mapper resource="mapper/ProfessorMapper.xml"/> <!-- 2026313 과제 -->
-  	<package name="mapper"/> <!-- mapper 패키지의 인터페이스파일을 sql구문으로 등록 -->
+  	<package name="model.mapper"/> <!-- mapper 패키지의 인터페이스파일을 sql구문으로 등록 -->
   </mappers>
 </configuration>
