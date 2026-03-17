@@ -18,7 +18,7 @@
 			<td>${b.no}</td>
 			<td>${b.writer}</td>
 			<td><a href="info?no=${b.no}">${b.title}</a></td>
-			<td><a href="bookupdateform?no=${b.no}">수정</a>
+			<td><a href="updateform?no=${b.no}">수정</a>
 			    <a href="javascript:confirmDelete('${b.no}')">삭제</a></td>
 		</tr>
 		</c:forEach>

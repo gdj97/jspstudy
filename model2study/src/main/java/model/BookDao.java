@@ -1,108 +1,65 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
+import model.mapper.BookMapper;
+
 public class BookDao {
+	private static final Class<BookMapper> cls = BookMapper.class;
+	
 	public boolean insert(Book book) {
-		Connection conn = DBConnection.getConnection();
-		PreparedStatement pstmt = null;
+		SqlSession session = DBConnection.getConnection();
 		try {
-		 pstmt = conn.prepareStatement
-				("insert into book (writer,title,content,regdate) values(?,?,?,now())");
-		 pstmt.setString(1, book.getWriter());
-		 pstmt.setString(2, book.getTitle());
-		 pstmt.setString(3, book.getContent());
-		 int cnt = pstmt.executeUpdate(); //추가된 레코드의 건수 리턴. 1
+		 int cnt = session.getMapper(cls).insert(book); //추가된 레코드의 건수 리턴. 1
 		 return cnt > 0; //true
-		} catch(SQLException e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnection.close(conn, pstmt, null);
+			DBConnection.close(session);
 		}
 		return false;
 	}
 	public Book selectOne(int no) {
-		Connection conn = DBConnection.getConnection();
-		String sql = "select * from book where no=?";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		SqlSession session = DBConnection.getConnection();
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				Book b = new Book();
-				b.setNo(rs.getInt("no"));
-				b.setWriter(rs.getString("writer"));
-				b.setTitle(rs.getString("title"));
-				b.setContent(rs.getString("content"));
-				b.setRegdate(rs.getDate("regdate"));
-				return b;
-			}
-		} catch(SQLException e) {
+			return session.getMapper(cls).selectOne(no);
+		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnection.close(conn, pstmt, rs);
+			DBConnection.close(session);
 		}
 		return null;
 	}
 	public void update(Book book) {
-		Connection conn = DBConnection.getConnection();
-		PreparedStatement pstmt = null;
+		SqlSession session = DBConnection.getConnection();
 		try {
-		 pstmt = conn.prepareStatement("update book set writer=?,title=?,content=? where no=?");
-		 pstmt.setString(1, book.getWriter());
-		 pstmt.setString(2, book.getTitle());
-		 pstmt.setString(3, book.getContent());
-		 pstmt.setInt(4, book.getNo());
-		 int cnt = pstmt.executeUpdate(); //추가된 레코드의 건수 리턴. 1
-		} catch(SQLException e) {
+		 int cnt = session.getMapper(cls).update(book); //추가된 레코드의 건수 리턴. 1
+		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnection.close(conn, pstmt, null);
+			DBConnection.close(session);
 		}
 	}
 	public void delete(int no) {
-		Connection conn = DBConnection.getConnection();
-		PreparedStatement pstmt = null;
+		SqlSession session = DBConnection.getConnection();
 		try {
-		 pstmt = conn.prepareStatement("delete from book where no=?");
-		 pstmt.setInt(1,no);
-		 int cnt = pstmt.executeUpdate(); //추가된 레코드의 건수 리턴. 1
-		} catch(SQLException e) {
+		 int cnt = session.getMapper(cls).delete(no);
+		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnection.close(conn, pstmt, null);
+			DBConnection.close(session);
 		}
 	}
 	 public List<Book> list() {
-		 Connection conn = DBConnection.getConnection();
-		 String sql = "select * from book";
-		 PreparedStatement pstmt = null;
-		 ResultSet rs = null;
-		 List<Book> list = new ArrayList<>();
+		SqlSession session = DBConnection.getConnection();
 		 try {
-			 pstmt = conn.prepareStatement(sql);
-			 rs = pstmt.executeQuery();
-			 while(rs.next()) {
-				Book b = new Book();
-				b.setNo(rs.getInt("no"));
-				b.setWriter(rs.getString("writer"));
-				b.setTitle(rs.getString("title"));
-				b.setContent(rs.getString("content"));
-				b.setRegdate(rs.getDate("regdate"));
-			    list.add(b);
-			 }
-			 return list;
-		 } catch (SQLException e) {
+			 return session.getMapper(cls).selectList();
+		 } catch (Exception e) {
 			 e.printStackTrace();
 		 } finally {
-			 DBConnection.close(conn,pstmt,rs);
+			 DBConnection.close(session);
 		 }
 		 return null;
 	 }
