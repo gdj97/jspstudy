@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--  /webapp/ajax/ex01_ajax.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>    
+</head>
+<body>
+<button id="btn1">ex01_ajax1.jsp</button>
+<button id="rmbtn1">ex01_ajax1.jsp로 추가된 요소 제거(h1태그제거)</button>
+<script type="text/javascript">
+$("#btn1").click(function(){
+	/*
+	$.ajax(url, {success:정상처리된경우실행,error:오류발생시실행 }) : jquery를 이용한 ajax 실행
+	*/
+	$.ajax("ex01_ajax1.jsp",{
+		success : function(data) { //data : <h1>jQuery Ajax 첫번째 연습</h1>
+			$("body").append(data);
+		},
+		error : function(e) {
+			alert("서버 오류:" + e.status);
+		}
+	})
+})
+$("#rmbtn1").click(function(){
+	//$("h1:last").remove()
+	//$("h1").eq(0).remove() //첫번째 h1태그 제거
+	//$("h1").eq(-1).remove() //마지막 h1태그 제거. -1:뒤에서 첫번째.
+	$("h1").get(-1).remove() //마지막 h1태그 제거. -1:뒤에서 첫번째.
+})
+</script>
+<hr>
+<button id="btn2">ex01_ajax2.jsp</button>
+<button id="rmbtn2">ex01_ajax2.jsp로 추가된 요소 제거(h2태그제거)</button>
+<script type="text/javascript">
+$("#btn2").click(function(){
+	$.ajax({
+		url : "ex01_ajax2.jsp",  //서버의 요청 페이지
+		type: "POST",            //method 방식 설정 : GET(기본)|POST
+//		data: "name=홍길동&age=20", //POST 방식인 경우 파라미터값 저장
+		data: {name:"홍길순",age:25}, //POST 방식인 경우 파라미터값 저장
+		success : function(data){  //정상응답.data:서버전송응답데이터
+			$("body").append(data)
+		},
+		error : function(e) {     //오류 응답
+			alert("서버오류:"+e.status);
+		}
+	})
+})
+$("#rmbtn2").click(function(){
+	$("h2").get(-1).remove() //마지막 h2태그 제거. -1:뒤에서 첫번째.
+})
+</script>
+</body>
+</html>

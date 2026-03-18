@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>실습문제 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Jquery1<p>Jquery1</p></h1><h1>Jquery1</h1><p>Jquery1</p>
+    <h1 class="item">Jquery1 class=item</h1>
+    <h1 id="selected">Jquery1 id=selected</h1>
+    <h2>Jquery2</h2><h3>Jquery3</h3>
+    <script type="text/javascript">
+          $(function(){	
+              //모든 태그의 글자 색을 분홍색으로 설정
+              $("*").css("color","pink")
+              //p 태그의 글자 색을 파랑색으로 설정
+              $("p").css("color","blue")
+              //h1 태그의 글자 색을 빨강색으로 설정
+              $("h1").css("color","red")
+              //class 속성이 item인 태그의 글자 색을 초록색으로 설정
+              $(".item").css("color","green")
+              //id 속성이 selected인 태그의 글자 색을 오렌지색으로 설정
+              $("#selected").css("color","orange")
+          })
+        </script>
+    
+</body>
+</html>    
