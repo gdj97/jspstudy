@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--  /webapp/ajax/ex06_json.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<button id="btn">JSON 연습</button>
+<div id="result"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$("#btn").click(function(){
+	$.ajax({
+		url : "ex06_person.jsp",
+		success : function(data) { //data:[{"name":"홍길동","gender":"남자","part":"기타"},...
+			//JSON.parse(문자열) : 문자열을 js객체 변환. json형식에 맞는 문자열만 가능
+			let person = JSON.parse(data); //[]:배열로 인식
+			$.each(person,function(i,item){
+				$("#result").append(`<ul><li>${item.name}</li>
+				<li>${item.gender}</li>
+				<li>${item.part}</li></ul>`);
+			})
+		}
+	})
+})
+</script>
+</body>
+</html>
