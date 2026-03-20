@@ -117,4 +117,19 @@ public class AjaxController extends MskimRequestMapping {
 		request.setAttribute("list", trlist);
 		return "ajax/exchange";			
 	}	
+	@RequestMapping("logo")
+	public String logo(HttpServletRequest request, HttpServletResponse response) {
+		Document doc = null;
+		String url = "https://www.gudi.kr/";
+		String img = null;
+		Elements imgs = null;
+		try {
+			doc = Jsoup.connect(url).get();
+			imgs  = doc.select("div.img_box._img_box > a > img "); //img태그들
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("logo", imgs.get(0));
+		return "ajax/logo";			
+	}	
 }

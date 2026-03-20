@@ -18,7 +18,10 @@
 <body>
 
 <table>
-<tr><td colspan="3" style="text-align: right">
+<tr><td>
+  <div id="logo"></div>
+</td>
+<td colspan="2" style="text-align: right">
 <c:if test="${empty sessionScope.login }">
    <a href="${path}/member/loginForm">로그인</a>
    <a href="${path}/member/joinForm">회원가입</a>
@@ -53,6 +56,16 @@
 </table>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
+function logo() {
+	$.ajax("${path}/ajax/logo",{
+		success : function(data) {
+			$("#logo").html(data);
+		},
+		error : function(e) {
+			alert("환율 조회 오류:" + e.status);
+		}
+	})
+}
 function exchangeRate() {
 	$.ajax("${path}/ajax/exchange",{
 		success : function(data) {
@@ -66,6 +79,7 @@ function exchangeRate() {
 }
 $(function(){ //화면이 로드가 완료되면
 	exchangeRate();
+	logo();
     $.ajax({
     	url : "${path}/ajax/select",
     	success : function(data) {
