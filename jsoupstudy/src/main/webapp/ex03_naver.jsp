@@ -19,9 +19,17 @@
   Document doc = null;  
   try {
 	   doc = Jsoup.connect(url).get();
-	   Elements hlist = doc.select("div.head_info");
-	   Elements htitle = doc.select("h3.h_lst");
+	   Elements hlist = doc.select("div.head_info"); //환율외
+	   Elements htitle = doc.select("h3.h_lst");     //통화코드
 	   for (int i=0;i<hlist.size();i++) {
+        /* tag : <div class="head_info point_dn">
+                  <span class="value">1,431.30</span>
+                  <span class="txt_krw">
+                  <span class="blind">원</span></span>
+                  <span class="change"> 0.70</span>
+                  <span class="blind">하락</span></div>
+             title :<h3 class="h_lst"><span class="blind">미국 USD</span></h3>   
+          */		   
 		   Element tag = hlist.get(i);
 		   Element title = htitle.get(i);
 		   System.out.println(tag);
@@ -29,20 +37,21 @@
 		   System.out.println("===========");
 		   String name = title.selectFirst("span.blind").html();
 		   out.print(name + ":");
-		   String value = tag.selectFirst("span.value").html();
+		   String value = tag.selectFirst("span.value").html(); //환율정보
 		   out.print(value + "&nbsp;&nbsp;");
-           String change = tag.selectFirst("span.change").html();
+           String change = tag.selectFirst("span.change").html(); //변동금액
 		   out.print(change + "&nbsp;&nbsp;");
-		   Elements  blinds = tag.select("span.blind"); 
-		   Element blind = blinds.get(blinds.size() - 1);
-		   out.print(blind + "<br>");
+		   Elements  blinds = tag.select("span.blind"); //원, 하락
+		   Element blind = blinds.get(blinds.size() - 1); //하락
 		   double d=0;
 		   System.out.println(blind + "===========");
 		   if(blind.toString().trim().contains("하락")) {
-			   d = Double.parseDouble(change.replace(",", "")) * -1;
+			   d = Double.parseDouble(change.replace(",", "")) * -1; //하락금액을 음수표현
 		   } else {
-			   d = Double.parseDouble(change.replace(",", ""));
+			   d = Double.parseDouble(change.replace(",", ""));  //상승금액
 		   }
+		   out.print(d + "&nbsp;&nbsp;");
+		   out.print(blind + "<br>");
 	   }
    } catch(Exception e) {
 	   e.printStackTrace();

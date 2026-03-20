@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>우편번호 보기</title>
+</head>
+<body>
+<input type="button" value="우편번호" id="btn"><br>
+<div id="result"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$("#btn").click(function(){
+	 $.ajax({
+		    url : "test2.jsp",
+			success : function(data) {
+		           htmldata = "<br><table border='1'>"
+					   +"<tr><th>우편번호</th><th>읍면동</th><th>주소</th></tr>";
+				   let jsondata = JSON.parse(data); //jsondata : json 객체
+				   //jsondata.ZIP : 배열 
+				   for(var i=0;i<jsondata.ZIP.length;i++) {
+						   var code = jsondata.ZIP[i].zipcode;
+						   var dong = jsondata.ZIP[i].dong;
+						   var addr = jsondata.ZIP[i].addr;
+					  htmldata += "<tr><td>"+code+"</td><td>"
+					                   +dong+"</td><td>"+addr+"</td></tr>";
+					}
+				    htmldata += "</table>";
+				    console.log(htmldata);
+					$("#result").html(htmldata);
+			 },
+			 error : function(e) {
+				 alert("서버오류 :" + e.status);
+			 }
+		 })
+
+})
+</script>
+
+</body>
+</html>
